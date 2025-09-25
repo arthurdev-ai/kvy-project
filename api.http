@@ -1,0 +1,30 @@
+### Merchant Registration
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "email": "marchand@test.com",
+  "password": "password123"
+}
+
+### Merchant Login
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "marchand@test.com",
+  "password": "password123"
+}
+
+> {% client.global.set("jwt_token", response.body.token); %}
+
+### Generate Pre-signed URL
+POST http://localhost:8080/api/kyc/generate-upload-url
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "fileName": "id-card.pdf",
+  "fileType": "application/pdf",
+  "fileSize": 1048576
+}
