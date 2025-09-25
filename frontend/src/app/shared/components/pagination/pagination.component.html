@@ -1,0 +1,17 @@
+<ul class="flex items-center justify-center gap-2 my-2">
+  @for (item of getTotalPage(); track $index) {
+  <li>
+    <button
+      (click)="setCurrentPage(item)"
+      [ngClass]="{
+        'bg-blue-500 hover:bg-blue-400 shadow-md border-2 border-white font-bold':
+          item == currentPage.toString(),
+        'bg-stone-500 hover:bg-stone-400': item != currentPage.toString(),
+        'min-w-8 text-white p-1.5 text-xs rounded-sm': true
+      }"
+    >
+      {{ item }}
+    </button>
+  </li>
+  }
+</ul>

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: kyc_postgres
+    environment:
+      POSTGRES_USER: kycuser
+      POSTGRES_PASSWORD: kycpassword
+      POSTGRES_DB: kyc_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - kyc-network
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: kyc_localstack
+    environment:
+      - SERVICES=s3 # On n'active que le service S3
+      - AWS_DEFAULT_REGION=eu-west-1
+      - EDGE_PORT=4566
+    ports:
+      - "4566:4566" # Port principal pour les services AWS
+    networks:
+      - kyc-network
+
+networks:
+  kyc-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

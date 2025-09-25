@@ -1,0 +1,77 @@
+<section>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <p class="text-red-500">{{ errorMessage }}</p>
+    <fieldset class="my-2">
+      <label for="username">Nom d'utilisateur</label>
+      <input
+        formControlName="username"
+        (change)="onChangeEmailInput($event)"
+        [className]="
+          userForm.get('username')?.invalid && userForm.get('username')?.touched
+            ? 'w-full focus-visible:outline-none ring-2 mt-1 p-1.5 border ring-red-400'
+            : 'w-full focus-visible:outline-none focus-visible:ring-2 mt-1 p-1.5 border'
+        "
+        type="text"
+        name="username"
+        id="username"
+        autocomplete="username"
+        placeholder="Saissisez votre nom d'utilisateur"
+      />
+      @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+      <div class="text-sm mt-1 text-red-500">Le nom d'utilisateur est requis</div>
+      }
+    </fieldset>
+    <fieldset class="my-2">
+      <label for="email">Email</label>
+      <input
+        formControlName="email"
+        (change)="onChangeEmailInput($event)"
+        [className]="
+          userForm.get('email')?.invalid && userForm.get('email')?.touched
+            ? 'w-full focus-visible:outline-none ring-2 mt-1 p-1.5 border ring-red-400'
+            : 'w-full focus-visible:outline-none focus-visible:ring-2 mt-1 p-1.5 border'
+        "
+        type="email"
+        name="email"
+        id="email"
+        autocomplete="email"
+        placeholder="Saissisez votre email"
+      />
+      @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+      <div class="text-sm mt-1 text-red-500">Email est requis</div>
+      }
+    </fieldset>
+    <fieldset class="my-2">
+      <label for="password">Mot de passe</label>
+      <input
+        [className]="
+          userForm.get('password')?.invalid && userForm.get('password')?.touched
+            ? 'w-full focus-visible:outline-none ring-2 mt-1 p-1.5 border ring-red-400'
+            : 'w-full focus-visible:outline-none focus-visible:ring-2 mt-1 p-1.5 border'
+        "
+        type="password"
+        name="password"
+        formControlName="password"
+        id="password"
+        placeholder="Saissisez votre mot de passe"
+      />
+      @if (userForm.get('password')?.invalid &&
+      userForm.get('password')?.touched) {
+      <div class="text-sm mt-1 text-red-500">Le mot de passe invalide</div>
+      }
+    </fieldset>
+    <div class="text-sm mt-2">
+      Se connecter
+      <a [routerLink]="['/login']" class="text-blue-500">ici</a>.
+    </div>
+    <fieldset class="my-4">
+      <button
+        [disabled]="!userForm.valid"
+        type="submit"
+        class="bg-blue-400 px-4 rounded-md p-2.5 text-white hover:bg-blue-500"
+      >
+        Se connecter
+      </button>
+    </fieldset>
+  </form>
+</section>
